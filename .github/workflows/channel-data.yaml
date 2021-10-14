@@ -6,9 +6,9 @@ name: channel-data
 jobs:
   fetch-channel-messages:
     runs-on: macOS-latest
-    env:
+    # env:
       # TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
@@ -20,8 +20,5 @@ jobs:
       - name: Fetch Tweets
         run: |
           Rscript R/bot_channel2data.R
-      - name: Push results
-        run: |
-          git add --all *
-          git commit -m"Daily update"
-          git push -q https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master
+      - name: Git Auto Commit
+        uses: stefanzweifel/git-auto-commit-action@v4.12.0
