@@ -1,6 +1,6 @@
 update.packages(ask = FALSE, checkBuilt = TRUE)
-if (!requireNamespace('tidyverse', quietly = TRUE)) install.packages('tidyverse')
-if (!requireNamespace('jsonlite', quietly = TRUE)) install.packages('jsonlite')
+# if (!requireNamespace('tidyverse', quietly = TRUE)) install.packages('tidyverse')
+# if (!requireNamespace('jsonlite', quietly = TRUE)) install.packages('jsonlite')
 
 
 full_data <- jsonlite::fromJSON('https://tg.i-c-a.su/json/datastitches/')
