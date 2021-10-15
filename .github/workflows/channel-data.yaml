@@ -17,7 +17,7 @@ jobs:
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-R-packages
-      - name: Fetch Tweets
+      - name: Fetch channel messages
         run: |
           Rscript R/bot_channel2data.R
       - name: Git Auto Commit
