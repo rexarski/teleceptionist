@@ -12,6 +12,6 @@ jobs:
       - name: Install related packages
         run: Rscript -e 'install.packages(c("tidyverse", "jsonlite"), dependencies = TRUE)'
       - name: Fetch channel messages
-        run: Rscript R/bot_channel2data.R
+        run: Rscript bot_channel2data.R
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v4.12.0
