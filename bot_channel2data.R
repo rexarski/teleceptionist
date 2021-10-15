@@ -7,7 +7,7 @@ library(jsonlite)
 
 full_data <- jsonlite::fromJSON('https://tg.i-c-a.su/json/datastitches/')
 
-threshold <- read_file('data/id.txt') %>%
+threshold <- readr::read_file('id.txt') %>%
     as.integer()
 
 full_data <- full_data$messages %>%
@@ -31,10 +31,10 @@ if (nrow(full_data) == 0) {
         web_title = full_data$media$webpage$title,
         web_description = full_data$media$webpage$description,
     )
-    
-    write_csv(batch, paste0('data/channel/', Sys.Date(),'.csv'))
+
+    readr::write_csv(batch, paste0('data/', Sys.Date(),'.csv'))
 }
 
-write_file(as.character(max(batch$id)), 'data/id.txt', append = FALSE)
+readr::write_file(as.character(max(batch$id)), 'id.txt', append = FALSE)
 
-          
+

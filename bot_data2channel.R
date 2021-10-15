@@ -5,7 +5,7 @@ library(jsonlite)
 
 my_channel <- '@bot_ceshi'
 d = Sys.Date()
-token <- read_lines("R/token.txt")
+token <- read_lines("token.txt")
 
 bot = Bot(token = token)
 
@@ -25,7 +25,7 @@ if (nrow(match)==0) {
                                   match$value[1],'.md'))
     title <- post_json$title
     img <- post_json$img
-    
+
     if (is.null(img)) {
         bot$sendMessage(chat_id = my_channel,
                         text = title,
@@ -36,6 +36,6 @@ if (nrow(match)==0) {
                       caption = title,
                       parse_mode = 'Markdown')
     }
-    
+
 }
 
