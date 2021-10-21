@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '0 12 * * 2,4,6'
+    - cron:  '0 12 * * 5'
 name: channel-data
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
       - name: Install related packages
-        run: Rscript -e 'install.packages(c("tidyverse", "jsonlite"), dependencies = TRUE)'
+        run: Rscript -e 'install.packages(c("tidyverse", "jsonlite", "lubridate"), dependencies = TRUE)'
       - name: Fetch channel messages
         run: Rscript bot_channel2data.R
       - name: Git Auto Commit

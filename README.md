@@ -10,8 +10,4 @@ Technically speaking, the functional script is not a bot yet, since it only oper
 
 Additionally, the `bot_data2channel` is a bot sends pre-formatted messages to a channel. However, this is out of the automation loop.
 
-The cron job for `bot_channel2data` is set to run every day at 12:00 PM.
-
-## credit
-
-- [Telegram JSON generator](https://tg.i-c-a.su/) by [@xtrime](https://github.com/xtrime-ru).
+The cron job for `bot_channel2data` is set to run every Friday at 12:00 PM.

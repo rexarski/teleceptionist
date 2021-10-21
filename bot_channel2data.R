@@ -5,36 +5,38 @@
 library(tidyverse)
 library(jsonlite)
 
-full_data <- jsonlite::fromJSON('https://tg.i-c-a.su/json/datastitches/')
+my_channel <- '@bot_ceshi'
+d = Sys.Date()
+# token <- read_lines("token.txt")
+# read token from GitHub action secret instead
+
+token <- Sys.getenv('TELEGRAM_BOT_TOKEN')
 
 threshold <- readr::read_file('id.txt') %>%
     as.integer()
 
-full_data <- full_data$messages %>%
-    filter(id > threshold)
+full_data <- jsonlite::fromJSON(
+    paste0('https://api.telegram.org/bot', 
+           token, '/getUpdates?chat_id=', 
+           my_channel, '&offset=-10'))
+
+full_data <- full_data$result$channel_post %>%
+    filter(message_id>threshold)
 
 if (nrow(full_data) == 0) {
     print('Nothing to do.')
 } else {
     batch <- tibble(
-        id = full_data$id,
-        pinned = full_data$pinned,
-        date = full_data$date,
-        message = full_data$message,
-        type = case_when(
-            !is.na(full_data$media$photo$id) ~ 'photo',
-            !is.na(full_data$media$webpage$url) ~ 'webpage',
-            !is.na(full_data$media$document$id) ~ 'document'
+        id = full_data$message_id,
+        date = full_data$date %>%
+            lubridate::as_datetime() %>% as.Date(),
+        pinned = if_else(
+            !is.na(full_data$pinned_message$message_id), TRUE, FALSE
         ),
-        web_url = full_data$media$webpage$url,
-        web_site = full_data$media$webpage$site_name,
-        web_title = full_data$media$webpage$title,
-        web_description = full_data$media$webpage$description,
+        message = full_data$text
     )
-
+    
     readr::write_csv(batch, paste0('data/', Sys.Date(),'.csv'))
 }
 
 readr::write_file(as.character(max(batch$id)), 'id.txt', append = FALSE)
-
-
