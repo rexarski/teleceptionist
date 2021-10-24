@@ -15,10 +15,13 @@ token <- Sys.getenv('TELEGRAM_BOT_TOKEN')
 threshold <- readr::read_file('id.txt') %>%
     as.integer()
 
-full_data <- jsonlite::fromJSON(
-    paste0('https://api.telegram.org/bot', 
+url <- paste0('https://api.telegram.org/bot', 
            token, '/getUpdates?chat_id=', 
-           my_channel, '&offset=-10'))
+           my_channel, '&offset=-10')
+
+print(url)
+
+full_data <- jsonlite::fromJSON(url)
 
 full_data <- full_data$result$channel_post %>%
     filter(message_id>threshold)
