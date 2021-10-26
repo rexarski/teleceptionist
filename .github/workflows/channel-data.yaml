@@ -6,6 +6,8 @@ name: channel-data
 jobs:
   fetch-channel-messages:
     runs-on: macOS-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
